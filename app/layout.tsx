@@ -1,6 +1,7 @@
 import { GeistSans } from 'geist/font/sans'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import Providers from './providers'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -25,9 +26,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <body>
-        <main className='text-foreground'>
-          {children}
-        </main>
+        <Providers>
+          <main className='text-foreground'>
+            {children}
+          </main>
+        </Providers>
       </body>
     </html>
   )
