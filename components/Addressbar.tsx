@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react'
 import ArrowLeftIcon from '@assets/icons/arrow-left.svg'
 import ArrowRightIcon from '@assets/icons/arrow-right.svg'
@@ -8,22 +10,24 @@ import SidebarIcon from '@assets/icons/sidebar.svg'
 import { Button } from '@components/ui/Button'
 import Image from 'next/image'
 import PathEditor from './PathEditor'
+import { useRouter } from 'next/navigation'
 
 
 function Addressbar() {
+    const router = useRouter()
     return (
         <div className='flex items-center h-12 gap-2 p-4 font-medium border-b border-border'>
 
-            <Button variant={'ghost'} size={'icon'}>
+            <Button onClick={() => router.back()} variant={'ghost'} size={'icon'}>
                 <Image src={ArrowLeftIcon} alt='back' />
             </Button>
 
-            <Button variant={'ghost'} size={'icon'}>
+            <Button onClick={() => router.forward()} variant={'ghost'} size={'icon'}>
                 <Image src={ArrowRightIcon} alt='forward' />
             </Button>
 
 
-            <Button variant={'ghost'} size={'icon'}>
+            <Button onClick={() => router.refresh()} variant={'ghost'} size={'icon'}>
                 <Image src={ReleadIcon} alt='refresh' />
             </Button>
 

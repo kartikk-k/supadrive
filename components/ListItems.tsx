@@ -1,28 +1,42 @@
 import React from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import createQueryString from '@/helpers/createQueryString'
+import FolderType from './fileTypes/FolderType'
+import DocumentType from './fileTypes/DocumentType'
+import { motion } from 'framer-motion'
 
 interface props {
-    items: Folder['files'] | undefined | null
+    items: storageObject[]
 }
 
 
 function ListItems({ items }: props) {
+    const router = useRouter()
+    const pathname = usePathname()
+    const searchParams = useSearchParams()
 
-    const renderItem = (fileType: Folder['files'][0]['type']) => {
-        if (fileType === 'FOLDER') {
-            return <p>Folder</p>
-        } else if (fileType === 'TXT') {
-            return <p>Text</p>
-        } else {
-            return <p>File</p>
+    const handleDoubleClick = (value: string) => {
+        router.push(pathname + '?' + createQueryString(value, searchParams))
+    }
+
+    const renderItem = (file: storageObject) => {
+        if (file.type === 'FOLDER') {
+            return <FolderType name={file.name} onDoubleClick={handleDoubleClick} />
+
+        } else if (file.type === 'FILE') {
+            return <DocumentType name={file.name} onDoubleClick={handleDoubleClick} />
         }
     }
 
     return (
-        <div>
+        <div className='flex font-medium items-start gap-10 flex-wrap text-[#2C2F36]'>
             {items?.map(file => (
-                <div>
-                    {renderItem(file.type)}
-                </div>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                >
+                    {renderItem(file)}
+                </motion.div>
             ))}
         </div>
     )

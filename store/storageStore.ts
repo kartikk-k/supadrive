@@ -1,66 +1,52 @@
+import getFolderDataFromDatabase from '@/helpers/supabase/getFolderData'
+import { toast } from 'sonner'
 import { create } from 'zustand'
 
 
 interface StorageStore {
-    folders: Folder[]
+    storageObjects: storageObject[]
 
-    getFolderData: (folder: Folder) => Folder
-    getFileData: (folder: Folder, file: FolderItem) => FolderItem
+    getFolderData: (path: string) => Promise<storageObject | null>
+    updateFolderData: (path: string) => Promise<storageObject | null>
 
-    addFolders: (folders: Folder[]) => void
-    // addFolder: (folder: Folder) => void
-    addFile: (folder: Folder, file: FolderItem) => void
-    removeFolder: (folder: Folder) => void
-    removeFile: (folder: Folder, file: FolderItem) => void
+    addStorageObjects: (storageObjects: storageObject[]) => void
 }
 
-const useStorageStore = create<StorageStore>((set) => ({
-    folders: [],
+const useStorageStore = create<StorageStore>((set, get) => ({
+    storageObjects: [],
 
-    getFolderData: (folder) => {
-        return folder
-    },
-    getFileData: (folder, file) => {
-        return file
+    updateFolderData: async (path) => {
+        const { data, error } = await getFolderDataFromDatabase(path)
+
+        if (error) {
+            toast.error(error.message)
+            return null
+        }
+
+        let storageObject = get().storageObjects.find(storageObject => storageObject.path === path)
+        storageObject = { ...storageObject, ...data }
+        if (storageObject) set({ storageObjects: [...get().storageObjects, storageObject] })
+        else set({ storageObjects: [...get().storageObjects, data] })
+
+        return data as storageObject
     },
 
-    addFolders: (folders) => {
-        set((state) => ({
-            folders: [...state.folders, ...folders],
-        }))
+    getFolderData: async (path) => {
+        // check is data already exists in store
+        const { storageObjects } = get()
+        const storageObject = storageObjects.find(storageObject => storageObject.path === path)
+        if (storageObject) return storageObjects[0]
+
+        // get data from database
+        const { data, error } = await getFolderDataFromDatabase(path)
+
+        if (error) toast.error(error.message)
+        else set({ storageObjects: [...get().storageObjects, data] })
+
+        return data as storageObject
     },
 
-    addFile: (folder, file) => {
-        set((state) => ({
-            folders: state.folders.map((f) => {
-                if (f.path === folder.path) {
-                    return {
-                        ...f,
-                        files: [...f.files, file],
-                    }
-                }
-                return f
-            }),
-        }))
-    },
-    removeFolder: (folder) => {
-        set((state) => ({
-            folders: state.folders.filter((f) => f.path !== folder.path),
-        }))
-    },
-    removeFile: (folder, file) => {
-        set((state) => ({
-            folders: state.folders.map((f) => {
-                if (f.path === folder.path) {
-                    return {
-                        ...f,
-                        files: f.files.filter((fl) => fl.path !== file.path),
-                    }
-                }
-                return f
-            }),
-        }))
-    },
+    addStorageObjects: (storageObjects) => set({ storageObjects })
 }))
 
 export default useStorageStore

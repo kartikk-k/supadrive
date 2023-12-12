@@ -2,9 +2,10 @@ import { createClient } from "@/utils/supabase/client"
 
 const supabase = createClient()
 
-const createFolder = async (name: string, path: string) => {
+const createFile = async (name: string, path: string) => {
 
-    const type = 'FOLDER'
+    const type = 'FILE'
+
 
     const { data, error } = await supabase.from('objects').insert([
         { name, path, type }
@@ -13,4 +14,4 @@ const createFolder = async (name: string, path: string) => {
     return { data, error }
 }
 
-export default createFolder
+export default createFile

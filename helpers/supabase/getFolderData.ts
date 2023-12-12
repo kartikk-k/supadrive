@@ -5,9 +5,10 @@ const supabase = createClient()
 const getFolderDataFromDatabase = async (path: string) => {
 
     const { data, error } = await supabase
-        .from('folders')
+        .from('objects')
         .select('*')
         .eq('path', `/${path}`)
+        .single()
 
 
     if (error) console.log(error)
