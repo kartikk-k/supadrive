@@ -10,11 +10,21 @@ import SidebarIcon from '@assets/icons/sidebar.svg'
 import { Button } from '@components/ui/Button'
 import Image from 'next/image'
 import PathEditor from './PathEditor'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
+import useStorageStore from '@/store/storageStore'
+import getCurrentPath from '@/helpers/getCurrentPath'
 
 
 function Addressbar() {
+
     const router = useRouter()
+    const searchParams = useSearchParams()
+    const refreshPathData = useStorageStore(state => state.refreshPathData)
+
+    const handleRefreshData = () => {
+        refreshPathData(getCurrentPath(searchParams))
+    }
+
     return (
         <div className='flex items-center h-12 gap-2 p-4 font-medium border-b border-border'>
 
@@ -27,7 +37,7 @@ function Addressbar() {
             </Button>
 
 
-            <Button onClick={() => router.refresh()} variant={'ghost'} size={'icon'}>
+            <Button onClick={handleRefreshData} variant={'ghost'} size={'icon'}>
                 <Image src={ReleadIcon} alt='refresh' />
             </Button>
 

@@ -55,6 +55,7 @@ const useStorageStore = create<StorageStore>((set, get) => ({
     },
 
     refreshPathData: async (path) => {
+        set({ isFetching: true })
         const { data, error } = await getFolderDataFromDatabase(path)
         set({ isFetching: false })
 
