@@ -8,7 +8,6 @@ const getFolderDataFromDatabase = async (path: string) => {
         .from('objects')
         .select('*')
         .eq('path', `/${path}`)
-        .single()
 
 
     if (error) console.log(error)

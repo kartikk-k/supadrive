@@ -9,4 +9,5 @@ interface storageObject {
     extension?: '.txt' | '.pdf' | '.jpg' | '.png' | '.mp4' | undefined
     isPrivate: boolean
     publicLink?: string
+    isRenaming?: boolean
 }
