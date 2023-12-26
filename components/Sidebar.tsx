@@ -14,12 +14,12 @@ function Sidebar() {
             </div>
 
             <>
-                <Link href='/' className='flex items-center gap-2'>
+                <Link href='/storage' className='flex items-center gap-2'>
                     <Image src={FolderIllustration} alt='folder-icon' />
                     <p>Home</p>
                 </Link>
 
-                <Link href='/' className='flex items-center gap-2'>
+                <Link href='/storage' className='flex items-center gap-2'>
                     <Image src={FolderIllustration} alt='folder-icon' />
                     <p>Recently viewed</p>
                 </Link>

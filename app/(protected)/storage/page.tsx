@@ -1,52 +1,46 @@
 "use client"
 
 import React, { useEffect } from "react"
-import Image from "next/image"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import FolderIllustration from '@assets/illustrations/folder.svg'
-import FileIllustration from '@assets/illustrations/file.svg'
+import { useSearchParams } from "next/navigation"
 import useStorageStore from "@/store/storageStore"
-import getFolderDataFromDatabase from "@/helpers/supabase/getFolderData"
 import ListItems from "@/components/ListItems"
-import createQueryString from "@/helpers/createQueryString"
-import { toast } from "sonner"
 
 
 function Page() {
 
-    const router = useRouter()
-    const pathname = usePathname()
+    const getPathData = useStorageStore(state => state.getPathData)
+    const pathObjects = useStorageStore(state => state.pathObjects)
+
     const searchParams = useSearchParams()
 
-    const [folderData, setFolderData] = React.useState<storageObject[] | undefined | null>(undefined)
+    // const [folderData, setFolderData] = React.useState<storageObject[] | undefined | null>(undefined)
+    const [currentPath, setCurrentPath] = React.useState<string | null | undefined>(undefined)
+
 
     useEffect(() => {
-        if (searchParams.get('path') === null || searchParams.get('path') === '') getData('')
-        else if (searchParams.get('path')) getData(searchParams.get('path')!)
-        else setFolderData(null)
+        if (searchParams.get('path') === null || searchParams.get('path') === '') setCurrentPath('')
+        else if (searchParams.get('path')) setCurrentPath(searchParams.get('path')!)
     }, [searchParams])
 
-    const getData = async (path: string) => {
-        const { data, error } = await getFolderDataFromDatabase(path)
+    // triggers getData for current path when the current path changes
+    useEffect(() => {
+        if (currentPath === undefined) return
+        else getPathData(currentPath!)
+    }, [currentPath])
 
-        if (data) setFolderData(data)
-        else toast.error(error?.message)
-    }
 
     return (
         <div className='p-4 space-y-4 text-sm'>
 
-            {folderData === null && <p>Folder is empty</p>}
-            {folderData && (
+            {pathObjects && !pathObjects.length && <p>Folder is empty</p>}
+
+            {pathObjects && (
                 <div
                     className="mt-5"
                 >
-                    <ListItems items={folderData} />
+                    <ListItems items={pathObjects} />
                 </div>
             )}
-
-
-            {folderData?.length === 0 && <p>Folder is empty</p>}
 
         </div>
     )
