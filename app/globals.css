@@ -39,3 +39,20 @@
 		transform: translateY(0);
 	}
 }
+
+#hero-title {
+	background: -webkit-linear-gradient(91deg, #324459 -6.2%, #9fb3ca 178.99%);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+#primary-btn {
+	background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.2) 0%,
+			rgba(255, 255, 255, 0) 100%
+		),
+		#3a70f5;
+	box-shadow: 0px 0px 0px 1px rgba(26, 92, 255, 0.6);
+}

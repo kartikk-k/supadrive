@@ -2,6 +2,7 @@ import { GeistSans } from 'geist/font/sans'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Providers from './providers'
+import { Metadata } from 'next'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -12,10 +13,15 @@ const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : 'http://localhost:3000'
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
   title: 'Supadrive',
   description: 'Your personal cloud storage',
+  openGraph: {
+    images: [
+      '/preview.png'
+    ]
+  }
 }
 
 export default function RootLayout({

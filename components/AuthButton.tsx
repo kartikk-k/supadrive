@@ -20,21 +20,37 @@ export default async function AuthButton() {
     // return redirect('/login')
   }
 
-  return user ? (
-    <div className="flex items-center gap-4">
-      Hey, {user.email}!
+  return (
+    <div className="flex items-center gap-4 font-medium">
+      {user ? (
+        <Link
+          href={'/storage'}
+        >
+          Dashboard
+        </Link>
+      ) : (
+        <Link
+          href={'/login'}
+        >
+          Login
+        </Link>
+      )}
+
+      <Link
+        href={'https://github.com/kartikk-k/supadrive'}
+        target='_blank'
+      >
+        Github
+      </Link>
+
+
+      {/* Hey, {user.email}!
       <form action={signOut}>
         <button className="px-4 py-2 no-underline rounded-md bg-btn-background hover:bg-btn-background-hover">
           Logout
         </button>
-      </form>
+      </form> */}
+
     </div>
-  ) : (
-    <Link
-      href="/login"
-      className="flex px-3 py-2 no-underline rounded-md bg-btn-background hover:bg-btn-background-hover"
-    >
-      Login
-    </Link>
   )
 }

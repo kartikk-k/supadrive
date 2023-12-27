@@ -1,10 +1,11 @@
-import DeployButton from '../components/DeployButton'
 import AuthButton from '../components/AuthButton'
 import { createClient } from '@/utils/supabase/server'
-import ConnectSupabaseSteps from '@/components/ConnectSupabaseSteps'
-import SignUpUserSteps from '@/components/SignUpUserSteps'
-import Header from '@/components/Header'
 import { cookies } from 'next/headers'
+import Logo from './logo.svg'
+import Image from 'next/image'
+import Link from 'next/link'
+import HeroImage from './hero.png'
+
 
 export default async function Index() {
   const cookieStore = cookies()
@@ -21,35 +22,58 @@ export default async function Index() {
   const isSupabaseConnected = canInitSupabaseClient()
 
   return (
-    <div className="flex flex-col items-center flex-1 w-full gap-20">
-      <nav className="flex justify-center w-full h-16 border-b border-b-foreground/10">
-        <div className="flex items-center justify-between w-full max-w-4xl p-3 text-sm">
-          <DeployButton />
+    <div className="flex flex-col items-center flex-1 h-screen gap-12 w-screen overflow-hidden min-h-screen bg-[#DCDCE2]">
+      <nav className="flex justify-center w-full p-4 md:p-8">
+        <div className="flex items-center justify-between w-full p-3 text-sm">
+          {/* <DeployButton /> */}
+          <Image
+            src={Logo}
+            alt="Supadrive"
+            width={28}
+          />
           {isSupabaseConnected && <AuthButton />}
         </div>
       </nav>
 
-      <div className="flex flex-col flex-1 max-w-4xl gap-20 px-3 opacity-0 animate-in">
-        <Header />
-        <main className="flex flex-col flex-1 gap-6">
-          <h2 className="mb-4 text-4xl font-bold">Next steps</h2>
-          {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-        </main>
+      {/* hero */}
+      <div className='flex flex-col justify-between w-full p-4 md:p-8 md:flex-row'>
+        {/* header */}
+        <div className='relative z-10 space-y-8 shrink-0'>
+          <h1
+            id='hero-title'
+            className='text-5xl font-extrabold'
+          >
+            Supadrive
+          </h1>
+          <p className='max-w-md font-medium text-gray-500'>
+            A self-host personal cloud storage where you get full control over your data.
+          </p>
+
+          <div className='space-x-4 text-xs font-medium'>
+            <Link href={'/login'} id='primary-btn' className='px-4 py-2 text-white rounded-lg'>
+              Get Started
+            </Link>
+
+            <Link href={'/login'} className='px-4 py-1.5'>
+              Login
+            </Link>
+          </div>
+
+        </div>
+
+        {/* preview image */}
+        <div className='relative'>
+          <Image
+            src={HeroImage}
+            alt='Supadrive'
+            width={1800}
+            // height={00}
+            className='relative -bottom-[20%] pt-20 md:-top-20 min-w-[100vw]'
+          />
+        </div>
+
       </div>
 
-      <footer className="flex justify-center w-full p-8 text-xs text-center border-t border-t-foreground/10">
-        <p>
-          Powered by{' '}
-          <a
-            href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-            target="_blank"
-            className="font-bold hover:underline"
-            rel="noreferrer"
-          >
-            Supabase
-          </a>
-        </p>
-      </footer>
     </div>
   )
 }
