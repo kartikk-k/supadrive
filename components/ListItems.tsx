@@ -1,12 +1,8 @@
-import React from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import createQueryString from '@/helpers/createQueryString'
 import FolderType from './fileTypes/FolderType'
 import DocumentType from './fileTypes/DocumentType'
 import { motion } from 'framer-motion'
-import ItemWrapper from './ItemWrapper'
-import useStorageStore from '@/store/storageStore'
-import NewFolder from './NewFolder'
 
 interface props {
     items: storageObject[]

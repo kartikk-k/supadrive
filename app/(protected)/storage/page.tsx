@@ -4,16 +4,19 @@ import React, { useEffect } from "react"
 import { useSearchParams } from "next/navigation"
 import useStorageStore from "@/store/storageStore"
 import ListItems from "@/components/ListItems"
+import AddFolder from "@/components/AddFolder"
+import { toast } from "sonner"
 
 
 function Page() {
 
+    const isFetching = useStorageStore(state => state.isFetching)
     const getPathData = useStorageStore(state => state.getPathData)
     const pathObjects = useStorageStore(state => state.pathObjects)
+    const createNewFolder = useStorageStore(state => state.createNewFolder)
 
     const searchParams = useSearchParams()
 
-    // const [folderData, setFolderData] = React.useState<storageObject[] | undefined | null>(undefined)
     const [currentPath, setCurrentPath] = React.useState<string | null | undefined>(undefined)
 
 
@@ -28,19 +31,28 @@ function Page() {
         else getPathData(currentPath!)
     }, [currentPath])
 
+    useEffect(() => {
+        console.log(pathObjects)
+    }, [pathObjects])
+
+    const handleCreateFolder = (name: string) => {
+        if (!name.trim()) return toast.error('Folder name cannot be empty')
+        createNewFolder(currentPath!, name)
+    }
+
 
     return (
         <div className='p-4 space-y-4 text-sm'>
 
-            {pathObjects && !pathObjects.length && <p>Folder is empty</p>}
+            {!isFetching && !pathObjects.length && <p>Folder is empty</p>}
 
             {pathObjects && (
-                <div
-                    className="mt-5"
-                >
+                <div className="mt-5">
                     <ListItems items={pathObjects} />
                 </div>
             )}
+
+            <AddFolder onCreate={handleCreateFolder} />
 
         </div>
     )

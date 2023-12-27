@@ -8,37 +8,11 @@ import DeleteIcon from '@assets/icons/trash.svg'
 import CopyIcon from '@assets/icons/copy.svg'
 import LockIcon from '@assets/icons/lock.svg'
 import { Button } from '@components/ui/Button'
-import { toast } from 'sonner'
-import { createClient } from '@/utils/supabase/client'
-import createFolder from '@/helpers/supabase/createFolder'
 import useStorageStore from '@/store/storageStore'
-import AddFolder from './AddFolder'
 
 function Toolbar() {
-    // const cookieStore = cookies()
-    const supabase = createClient()
 
     const setIsAddingFolder = useStorageStore(state => state.setIsAddingFolder)
-
-    const addFolder = async (value: string, path: string) => {
-        setIsAddingFolder(true)
-        // const isLoggedIn = (await supabase.auth.getSession()).data.session?.user
-        // if (!isLoggedIn) return toast.error('You must be logged in to create a folder')
-
-        // const promise = new Promise(async (resolve, reject) => {
-        //     const { data, error } = await createFolder(value, path)
-        //     if (error) reject(error)
-        //     resolve('New folder added')
-        // })
-
-        // toast.promise(promise, {
-        //     loading: 'Creating new folder...',
-        //     success: (data) => {
-        //         return `${data}`
-        //     },
-        //     error: 'Error creating new folder',
-        // })
-    }
 
     return (
         <div className='flex items-center h-12 gap-6 p-4 font-medium border-b border-border'>
@@ -48,11 +22,10 @@ function Toolbar() {
                 <span>Add file</span>
             </Button>
 
-            {/* <Button variant={'ghost'} onClick={() => addFolder('public', '/')}>
+            <Button variant={'ghost'} onClick={() => setIsAddingFolder(true)}>
                 <Image src={AddFolderIcon} alt='Add file' />
                 <span>Add folder</span>
-            </Button> */}
-            <AddFolder />
+            </Button>
 
             <span className='h-full w-[1px] bg-gray-300 inline-block' />
 

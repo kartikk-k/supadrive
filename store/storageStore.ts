@@ -18,7 +18,7 @@ interface StorageStore {
 
     refreshPathData: (path: string) => void // refresh data from database and add it to storage objects
 
-    createNewFolder: (path: string, folderName: string) => Promise<storageObject | null> // create new folder in database and add it to storage objects
+    createNewFolder: (path: string, folderName: string) => Promise<void> // create new folder in database and add it to storage objects
 
     isAddingFolder: boolean
     setIsAddingFolder: (isAddingFolder: boolean) => void
@@ -73,7 +73,30 @@ const useStorageStore = create<StorageStore>((set, get) => ({
     },
 
     createNewFolder: async (path, folderName) => {
-        return null
+
+        const promise = new Promise<void>(async (resolve, reject) => {
+
+            set({ isAddingFolder: true })
+            const { data, error } = await createFolder(folderName, path ? '/' + path : '/')
+            set({ isAddingFolder: false })
+
+            if (error) return reject(error.message)
+
+            // if data
+            const newFolder = data![0] as storageObject
+            const updatedPathObject = get().pathObjects.concat(newFolder)
+
+            set({ pathObjects: updatedPathObject })
+            resolve()
+        })
+
+        toast.promise(promise, {
+            loading: 'Creating folder...',
+            success: 'Folder created!',
+            error: (err) => `Error: ${err}`
+        })
+
+        return
     },
 
     isFetching: true,

@@ -1,29 +1,37 @@
 "use client"
 
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import Image from 'next/image'
 import { Button } from './ui/Button'
 import AddFolderIcon from '@assets/icons/add-folder.svg'
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from './ui/Dialog'
+import useStorageStore from '@/store/storageStore'
 
 
 
-function AddFolder() {
+interface props {
+    onCreate: (name: string) => void
+}
+
+function AddFolder({ onCreate }: props) {
+
+    const isAddingFolder = useStorageStore(state => state.isAddingFolder)
+    const setIsAddingFolder = useStorageStore(state => state.setIsAddingFolder)
 
     const [folderName, setFolderName] = React.useState<string>('Untitled')
 
-    const createFolder = async () => {
-
+    const handleClick = () => {
+        onCreate(folderName)
     }
 
     return (
-        <Dialog>
-            <DialogTrigger className='shrink-0'>
+        <Dialog open={isAddingFolder} onOpenChange={setIsAddingFolder}>
+            {/* <DialogTrigger className='shrink-0'>
                 <Button variant={'ghost'}>
                     <Image src={AddFolderIcon} alt='Add file' />
                     <span>Add folder</span>
                 </Button>
-            </DialogTrigger>
+            </DialogTrigger> */}
 
             <DialogContent>
                 <div className='flex flex-col items-center space-y-8'>
@@ -51,6 +59,7 @@ function AddFolder() {
                             variant='primary'
                             size={'large'}
                             disabled={!folderName.trim()}
+                            onClick={handleClick}
                         >
                             Create
                         </Button>
