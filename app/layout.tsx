@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   description: 'Your personal cloud storage',
   openGraph: {
     images: [
-      '/preview.png'
+      '/og.png'
     ]
   }
 }
