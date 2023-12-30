@@ -13,11 +13,12 @@ import useStorageStore from '@/store/storageStore'
 function Toolbar() {
 
     const setIsAddingFolder = useStorageStore(state => state.setIsAddingFolder)
+    const setsetIsUploadingFile = useStorageStore(state => state.setIsUploadingFile)
 
     return (
         <div className='flex items-center h-12 gap-6 p-4 font-medium border-b border-border'>
 
-            <Button variant={'ghost'}>
+            <Button variant={'ghost'} onClick={() => setsetIsUploadingFile(true)}>
                 <Image src={AddFileIcon} alt='Add file' />
                 <span>Add file</span>
             </Button>

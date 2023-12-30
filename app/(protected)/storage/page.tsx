@@ -6,6 +6,7 @@ import useStorageStore from "@/store/storageStore"
 import ListItems from "@/components/ListItems"
 import AddFolder from "@/components/AddFolder"
 import { toast } from "sonner"
+import FileUpload from "@/components/FileUpload"
 
 
 function Page() {
@@ -53,6 +54,7 @@ function Page() {
             )}
 
             <AddFolder onCreate={handleCreateFolder} />
+            <FileUpload />
 
         </div>
     )

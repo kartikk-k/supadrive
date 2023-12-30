@@ -23,6 +23,9 @@ interface StorageStore {
     isAddingFolder: boolean
     setIsAddingFolder: (isAddingFolder: boolean) => void
 
+    isUploadingFile: boolean
+    setIsUploadingFile: (isUploadingFile: boolean) => void
+
     // resets storage objects for new path
     pathReset: () => void
 }
@@ -104,6 +107,9 @@ const useStorageStore = create<StorageStore>((set, get) => ({
 
     isAddingFolder: false,
     setIsAddingFolder: (isAddingFolder) => set({ isAddingFolder }),
+
+    isUploadingFile: false,
+    setIsUploadingFile: (isUploadingFile) => set({ isUploadingFile }),
 
     pathReset: () => {
         set({ pathObjects: undefined, isFetching: true, isAddingFolder: false })
