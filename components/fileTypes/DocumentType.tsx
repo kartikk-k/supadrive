@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import DocumentIllustration from '@assets/illustrations/file.svg'
+import DocumentIllustration from '@assets/illustrations/file.png'
 
 
 
@@ -20,7 +20,7 @@ function DocumentType({ name, onDoubleClick }: props) {
                 priority
                 alt="folder"
                 quality={100}
-                className="object-cover h-20 overflow-visible"
+                className="object-contain h-full"
             />
             <p>{name}</p>
         </div>

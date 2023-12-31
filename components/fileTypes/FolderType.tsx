@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import FolderIllustration from '@assets/illustrations/folder.svg'
+import FolderIllustration from '@assets/illustrations/folder.png'
 
 
 
@@ -19,7 +19,7 @@ function FolderType({ name, onDoubleClick }: props) {
                 src={FolderIllustration}
                 priority
                 alt="folder"
-                className="h-20 w-full max-w-[100px] object-cover overflow-hidden"
+                className="object-cover h-full"
             />
             <p>{name}</p>
         </div>

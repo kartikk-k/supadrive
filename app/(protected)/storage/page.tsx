@@ -43,12 +43,12 @@ function Page() {
 
 
     return (
-        <div className='p-4 space-y-4 text-sm'>
+        <div className='w-full p-4 space-y-4 text-sm'>
 
             {!isFetching && !pathObjects.length && <p>Folder is empty</p>}
 
             {pathObjects && (
-                <div className="mt-5">
+                <div className="w-full mt-5">
                     <ListItems items={pathObjects} />
                 </div>
             )}

@@ -3,6 +3,7 @@ import createQueryString from '@/helpers/createQueryString'
 import FolderType from './fileTypes/FolderType'
 import DocumentType from './fileTypes/DocumentType'
 import { motion } from 'framer-motion'
+import StorageObjectWrapper from './StorageObjectWrapper'
 
 interface props {
     items: storageObject[]
@@ -20,15 +21,19 @@ function ListItems({ items }: props) {
 
     const renderItem = (file: storageObject) => {
         if (file.type === 'FOLDER') {
-            return <FolderType name={file.name} onDoubleClick={handleDoubleClick} />
+            return <StorageObjectWrapper key={file.id}>
+                <FolderType name={file.name} onDoubleClick={handleDoubleClick} />
+            </StorageObjectWrapper>
 
         } else if (file.type === 'FILE') {
-            return <DocumentType name={file.name} onDoubleClick={handleDoubleClick} />
+            return <StorageObjectWrapper key={file.id}>
+                <DocumentType name={file.name} onDoubleClick={handleDoubleClick} />
+            </StorageObjectWrapper>
         }
     }
 
     return (
-        <div className='flex font-medium items-start gap-10 flex-wrap text-[#2C2F36]'>
+        <div className='flex w-full font-medium items-start gap-10 flex-wrap text-[#2C2F36]'>
             {items?.map(file => (
                 <motion.div
                     initial={{ opacity: 0 }}

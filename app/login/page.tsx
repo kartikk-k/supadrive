@@ -72,6 +72,7 @@ export default function Login({
             <Input
               name='email'
               type='email'
+              defaultValue={'kartikkhorwal12122003@gmail.com'}
               placeholder='example@domain.com'
             />
           </div>
@@ -80,6 +81,7 @@ export default function Login({
             <Input
               name='password'
               type='password'
+              defaultValue={'123456'}
               placeholder='••••••••'
             />
           </div>
