@@ -16,9 +16,9 @@ async function Layout({ children }: { children: React.ReactNode }) {
     if (!user?.email) redirect('/')
 
     return (
-        <main className='flex flex-col h-screen'>
+        <main className='flex flex-col w-screen h-screen text-[#7c8994]'>
             <Navbar />
-            <div className='grid grid-cols-[250px_1fr] h-full text-sm'>
+            <div className='md:grid grid-cols-[250px_1fr] h-full text-sm'>
                 <Sidebar />
                 <div>
                     <Toolbar />

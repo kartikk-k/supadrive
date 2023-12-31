@@ -6,7 +6,7 @@ import FolderIllustration from '@assets/illustrations/folder.svg'
 
 function Sidebar() {
     return (
-        <div className='flex flex-col h-full gap-5 p-4 font-medium border-r border-border'>
+        <div className='flex-col hidden h-full gap-5 p-4 font-medium border-r md:flex border-border'>
 
             <div className='p-1.5 border rounded-lg flex items-center justify-between border-border'>
                 <p>Personal cloud</p>

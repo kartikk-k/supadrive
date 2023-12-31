@@ -16,7 +16,7 @@ function Toolbar() {
     const setsetIsUploadingFile = useStorageStore(state => state.setIsUploadingFile)
 
     return (
-        <div className='flex items-center h-12 gap-6 p-4 font-medium border-b border-border'>
+        <div className='flex items-center h-12 gap-6 p-4 overflow-hidden overflow-x-auto font-medium border-b light-scrollbar border-border'>
 
             <Button variant={'ghost'} onClick={() => setsetIsUploadingFile(true)}>
                 <Image src={AddFileIcon} alt='Add file' />

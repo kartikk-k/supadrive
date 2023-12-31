@@ -19,7 +19,7 @@ function Navbar() {
                 <button className='px-3 py-1 duration-300 rounded-md hover:bg-gray-200/70' >Shortcuts</button>
             </div>
 
-            <div className='flex items-center gap-4'>
+            <div className='hidden md:flex items-center gap-4'>
                 <Link href={'/'}>Github</Link>
                 <Link href={'/'}>Report issue</Link>
             </div>

@@ -3,16 +3,16 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "mxcn"
 
 const buttonVariants = cva(
-    "px-2 flex items-center justify-center gap-2 rounded-lg duration-300 shrink-0 disabled:opacity-50 disabled:cursor-not-allowed",
+    "px-2 flex items-center justify-center text-sm gap-2 rounded-xl duration-300 shrink-0 disabled:opacity-50 disabled:cursor-not-allowed",
     {
         variants: {
             variant: {
                 ghost: "hover:bg-gray-200/60",
-                primary: "bg-[#0b8af6] text-white",
+                primary: "bg-primary text-white",
                 outline: "border border-gray-300 hover:bg-gray-200/60",
             },
             size: {
-                default: "h-8",
+                default: "h-9",
                 icon: "h-8 w-8",
                 large: "h-9 px-4 text-sm"
             },

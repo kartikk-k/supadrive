@@ -8,7 +8,6 @@
 		--foreground: 208, 10%, 53%;
 		--border: 150, 3%, 89%;
 	}
-
 	/* @media (prefers-color-scheme: dark) {
     :root {
       --background: 0, 0%, 100%;
@@ -17,12 +16,6 @@
       --foreground: 208, 10%, 53%;
     }
   } */
-}
-
-@layer base {
-	* {
-		@apply border-foreground/20;
-	}
 }
 
 .animate-in {
@@ -55,4 +48,21 @@
 		),
 		#3a70f5;
 	box-shadow: 0px 0px 0px 1px rgba(26, 92, 255, 0.6);
+}
+
+.light-scrollbar::-webkit-scrollbar {
+	width: 2px;
+	height: 2px;
+}
+
+.light-scrollbar::-webkit-scrollbar-track {
+	@apply bg-gray-200;
+}
+
+.light-scrollbar::-webkit-scrollbar-thumb {
+	@apply bg-gray-300;
+}
+
+.light-scrollbar::-webkit-scrollbar-thumb:hover {
+	@apply bg-gray-400;
 }

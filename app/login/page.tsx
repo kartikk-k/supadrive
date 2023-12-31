@@ -1,7 +1,10 @@
-import Link from 'next/link'
 import { headers, cookies } from 'next/headers'
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
+import { Label } from '@/components/ui/Label'
+import { Input } from '@/components/ui/Input'
+import { Button } from '@/components/ui/Button'
+import Link from 'next/link'
 
 export default function Login({
   searchParams,
@@ -52,67 +55,115 @@ export default function Login({
     return redirect('/login?message=Check email to continue sign in process')
   }
 
+  {/* main content */ }
   return (
-    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
-      <Link
-        href="/"
-        className="absolute left-8 top-8 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
-        >
-          <polyline points="15 18 9 12 15 6" />
-        </svg>{' '}
-        Back
-      </Link>
+    <div className='flex items-center justify-center h-screen p-4 font-medium'>
+      <div className='space-y-10 w-full sm:w-[300px]'>
+        <div className='space-y-2 text-center'>
+          <h1 className='text-2xl font-bold text-gray-800'>Supadrive</h1>
+          <p className='font-medium text-gray-400'>Welcome! Please enter your details.</p>
+        </div>
 
-      <form
-        className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground"
-        action={signIn}
-      >
-        <label className="text-md" htmlFor="email">
-          Email
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
-          name="email"
-          placeholder="you@example.com"
-          required
-        />
-        <label className="text-md" htmlFor="password">
-          Password
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
-          type="password"
-          name="password"
-          placeholder="••••••••"
-          required
-        />
-        <button className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2">
-          Sign In
-        </button>
-        <button
-          formAction={signUp}
-          className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
-        >
-          Sign Up
-        </button>
-        {searchParams?.message && (
-          <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
-            {searchParams.message}
-          </p>
-        )}
-      </form>
+        {/* form -- can be replaced by <form> */}
+        <form action={signIn} className='space-y-4'>
+          {/* room code */}
+          <div className='space-y-1'>
+            <Label>Email</Label>
+            <Input
+              name='email'
+              type='email'
+              placeholder='example@domain.com'
+            />
+          </div>
+          <div className='space-y-1'>
+            <Label>Password</Label>
+            <Input
+              name='password'
+              type='password'
+              placeholder='••••••••'
+            />
+          </div>
+
+          <div className='pt-4 space-y-4 font-medium text-center'>
+            <Button
+              formAction={signIn}
+              variant={'primary'}
+              className='w-full'
+            >
+              Login
+            </Button>
+
+            <p className='text-xs text-gray-400'>
+              Need help?
+              &nbsp;{/* non-breaking space */}
+              <Link href="/" className='underline text-primary'>click here</Link>
+            </p>
+          </div>
+
+        </form>
+
+      </div>
     </div>
   )
 }
+// <div className="flex flex-col justify-center flex-1 w-full gap-2 px-8 sm:max-w-md">
+//   <Link
+//     href="/"
+//     className="absolute flex items-center px-4 py-2 text-sm no-underline rounded-md left-8 top-8 text-foreground bg-btn-background hover:bg-btn-background-hover group"
+//   >
+//     <svg
+//       xmlns="http://www.w3.org/2000/svg"
+//       width="24"
+//       height="24"
+//       viewBox="0 0 24 24"
+//       fill="none"
+//       stroke="currentColor"
+//       strokeWidth="2"
+//       strokeLinecap="round"
+//       strokeLinejoin="round"
+//       className="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1"
+//     >
+//       <polyline points="15 18 9 12 15 6" />
+//     </svg>{' '}
+//     Back
+//   </Link>
+
+//   <form
+//     className="flex flex-col justify-center flex-1 w-full gap-2 animate-in text-foreground"
+//     action={signIn}
+//   >
+//     <label className="text-md" htmlFor="email">
+//       Email
+//     </label>
+//     <input
+//       className="px-4 py-2 mb-6 border rounded-md bg-inherit"
+//       name="email"
+//       placeholder="you@example.com"
+//       required
+//     />
+//     <label className="text-md" htmlFor="password">
+//       Password
+//     </label>
+//     <input
+//       className="px-4 py-2 mb-6 border rounded-md bg-inherit"
+//       type="password"
+//       name="password"
+//       placeholder="••••••••"
+//       required
+//     />
+//     <button className="px-4 py-2 mb-2 bg-green-700 rounded-md text-foreground">
+//       Sign In
+//     </button>
+//     <button
+//       formAction={signUp}
+//       className="px-4 py-2 mb-2 border rounded-md border-foreground/20 text-foreground"
+//     >
+//       Sign Up
+//     </button>
+//     {searchParams?.message && (
+//       <p className="p-4 mt-4 text-center bg-foreground/10 text-foreground">
+//         {searchParams.message}
+//       </p>
+//     )}
+//   </form>
+// </div>
